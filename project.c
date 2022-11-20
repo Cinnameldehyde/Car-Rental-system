@@ -70,33 +70,6 @@ int main(void)
 }
 
 // defining functions
-//in  create account we'll take all the details right? mother father name bhi lena hai kya 
-
-//yeah saari leni hai. ek final screen bana kr sab display bhi kar denge but 
-//record keval name, password balance hi karte hain
-
-// haan okay okay
-// chal will do it by today...create account and hatane waala toh ho jaana chahiye aaj
-//baaki history waala kar rha hoon try...ho jaayega most probably
-
-// okk as you wish. listen ye live share hai. to is pure code ki ek copy paste kar le.
-// usi c project.file mein hi kar le. kuch edits kari hongi ig.
-// rest main iske aage aaj to  kuch ni add krungi. too much pending shit 
-
-// haan ok
-
-// band kar dun session??
-
-// idk...dekh le...band karne se if I code here toh save ho toh jaayega hi na?
-
-// arre i mean ki ye session band karne se ye window band ho jayegi. so you will
-// need to make a copy of this whole thing and do it in your own IDE. 
-// ur using codeblocks?
-
-// yup but this is more cool toh haan band karde...i ll 
-
-// XD arre just google vs code desktop download. official website se download kar le
-// sending u link   ok cool 
 
 // Create account
 User create_acc(User *user) // takes input for acc_name, acc_num, password,  yeah got it 
