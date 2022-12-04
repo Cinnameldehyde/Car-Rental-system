@@ -25,7 +25,8 @@ void main_menu(User user);     // main menu
     void cust_support(User user);  // customer support
     void remove_acc(User user);    // remove account
     void log_out(User user);       // log out of current account; end of program
-void receipt(User user);
+void receipt(User user);           // receipt
+void logo(void);                   // logo
 
 
 int main(void)
@@ -37,6 +38,7 @@ int main(void)
     int i = 1; //sizeof(users)/sizeof(users[0]);
 
     // Login menu
+    logo();
     printf("\t**********************************************************************\n");
     printf("\t*\t\tWelcome to Banking Management System!                *\n");
     printf("\t*\t\t\t     Login Menu                              *\n");
@@ -89,6 +91,7 @@ void main_menu(User user)
 {
     int option;
     printf("bal%d\n", user.balance);
+    logo();
     printf("\n\n\t**********************************************************************\n");
     printf("\t*\t\tWelcome to Banking Management System!                *\n");
     printf("\t*\t\t\t      Main Menu                              *\n");
@@ -153,7 +156,7 @@ int fund_menu(User user)
             printf("\t\t\tInvalid input!! Try again!\n");
     }while(option < 0 || option > 3);
     printf("\n\n");
-// yo
+
     switch(option)
     {
         case 1:
@@ -271,7 +274,34 @@ int bill_pay(User user)     // Pay your bills online
 
 void card_menu(User user)         // card menu
 {
-    printf("cardss\n"); 
+    int option = 0, balance = user.balance;
+    logo();
+    printf("\n\t**********************************************************************\n");
+    printf("\t*\t\tWelcome to Cards: Master Menu!               *\n");
+    printf("\t*____________________________________________________________________*\n");
+    printf("\t*\t1 =\tSend money                                           *\n");
+    printf("\t*\t1 =\t                                           *\n");
+    printf("\t*\t2 =\tReceive money                                        *\n");
+    printf("\t**********************************************************************\n");
+
+    // User input
+    printf("\t\t\t\tEnter your choice: ");
+    do{
+        scanf("%d", &option);
+        if(option < 0 || option > 3)
+            printf("\t\t\tInvalid input!! Try again!\n");
+    }while(option < 0 || option > 3);
+    printf("\n\n");
+
+    switch(option)
+    {
+        case 1:
+            balance = send_money(user);
+            break;
+        case 2:
+            //balance = rec_money(user);
+            break;
+    }
 }
 
 void create_card(User user)       //create new card
@@ -303,4 +333,25 @@ void log_out(User user)      // Log out of current session
 void receipt(User user)
 {
     printf("\treceipt\n");
+}
+
+void logo(void)
+{
+    int i, j, n = 5;
+    for(i = 1; i <= n; i++)
+    {
+        printf("\t\t    ");
+        for(j = 1; j <= n; j++)
+        {
+            if(j == i || (j == (n - i + 1)))
+                printf("₹ ");
+            else if((j == (i + 1) && j != 2 && j!= n) || (j == (i - 1)) && j != 1 && j != (n - 1))
+                printf("  ");
+            else
+                printf("☆ ");
+        }
+        if(i == 3)
+            printf("\t☆ Welcome to <Bank_name> !!! ☆");
+        printf("\n");
+    }
 }
