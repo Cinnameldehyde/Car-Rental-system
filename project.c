@@ -11,22 +11,24 @@ typedef struct{
 }User;
 
 // Declaring functions
-//void log_menu(void);            // login menu
-    User create_acc(User *user);    // new acc to existing list of users
-    int exist_acc(User *user);      // login to existing dummy acc; int i
-void main_menu(User user);     // main menu
-    int fund_menu(User user);      // fund transfer menu
-        int send_money(User user);     // fund transfer sub- send money
-        int rec_money(User user);      // fund transfer sub- receive money
-    int bill_pay(User user);       // bill n payment
-    void card_menu(User user);     // card menu
+
+//void log_menu(void);                      // login menu[not req]
+    User create_acc(User *user);            // new acc to existing list of users
+    int exist_acc(User *user);              // login to existing dummy acc; int i
+void main_menu(User user);                  // main menu
+    int fund_menu(User user);               // fund transfer menu
+        int send_money(User user);          // fund transfer sub- send money
+        int rec_money(User user);           // fund transfer sub- receive money
+    int bill_pay(User user);                // bill n payment
+    void card_menu(User user);              // card menu
         void create_card(User user);        // create new card
-        void add_card(User user);           //   enter existing card
-    void cust_support(User user);  // customer support
-    void remove_acc(User user);    // remove account
-    void log_out(User user);       // log out of current account; end of program
-void receipt(User user);           // receipt
-void logo(void);                   // logo
+        void add_card(User user);           // enter existing card
+    void cust_support(User user);           // customer support
+    void remove_acc(User user);             // remove account
+    void log_out(User user);                // log out of current account; end of program
+void send_receipt(User user, int  amt, char acc_name2[]);     // receipt
+void dep_receipt(User user, int  amt, char acc_name2[]);      // receipt
+void logo(void);                            // logo
 
 
 int main(void)
@@ -39,7 +41,7 @@ int main(void)
 
     // Login menu
     logo();
-    printf("\t**********************************************************************\n");
+    printf("\n\t**********************************************************************\n");
     printf("\t*\t\tWelcome to Banking Management System!                *\n");
     printf("\t*\t\t\t     Login Menu                              *\n");
     printf("\t*____________________________________________________________________*\n");
@@ -73,26 +75,23 @@ int main(void)
 
 // defining functions
 
-// Create account
-User create_acc(User *user) // takes input for acc_name, acc_num, password,  yeah got it 
+User create_acc(User *user)                 // Create account[takes input for acc_name, acc_num, password, first balance]
 {
     User user1 = {"Hello", 1234456677, "master_key", 210000}; // Dummy
     return user1;
 }
 
-// Login to existing account
-int exist_acc(User *user)
+int exist_acc(User *user)                   // Login to existing account
 {
-    return 0;
+    return 0; // index value of users array
 }
 
-// Main menu
-void main_menu(User user)
+void main_menu(User user)                   // Main menu
 {
     int option;
     printf("bal%d\n", user.balance);
     logo();
-    printf("\n\n\t**********************************************************************\n");
+    printf("\n\t**********************************************************************\n");
     printf("\t*\t\tWelcome to Banking Management System!                *\n");
     printf("\t*\t\t\t      Main Menu                              *\n");
     printf("\t*____________________________________________________________________*\n");
@@ -137,8 +136,7 @@ void main_menu(User user)
     main_menu(user);
 }
 
-// Fund menu
-int fund_menu(User user)
+int fund_menu(User user)                    // Fund menu
 {
     int option = 0, balance = user.balance;
     printf("\n\t**********************************************************************\n");
@@ -166,11 +164,10 @@ int fund_menu(User user)
             //balance = rec_money(user);
             break;
     }
-    return balance; 
+    return balance;
 }
 
-// Send money
-int send_money(User user)
+int send_money(User user)                   // Send money
 {
     long int ben_acc = 0;
     int amount = 0, option = 0, balance = user.balance;
@@ -217,7 +214,7 @@ int send_money(User user)
                         printf("\t\tDo you want to print receipt? (y/n): ");
                         scanf("%c", &ans);
                         if(ans == 'y')
-                            receipt(user);
+                            send_receipt(user, amount, ben_name);
                     }
                     return balance;
                     break;
@@ -234,7 +231,7 @@ int send_money(User user)
                         printf("\t\tDo you want to print receipt?(y/n): ");
                         scanf("%c", &ans);
                         if(ans == 'y')
-                            receipt(user);
+                            send_receipt(user, amount, ben_name);
                     }
                     return balance;
                     break;
@@ -251,7 +248,7 @@ int send_money(User user)
                         printf("\t\tDo you want to print receipt? (y/n): ");
                         scanf("%s", &ans);
                         if(ans == 'y')
-                            receipt(user);
+                            send_receipt(user, amount, ben_name);
                     }
                     return balance;
                     break;
@@ -266,22 +263,21 @@ int send_money(User user)
     return balance;
 }
 
-int bill_pay(User user)     // Pay your bills online
+int bill_pay(User user)                     // Pay your bills online
 {
-    printf("pay ur bill\n"); 
+    printf("pay ur bill\n");
     return user.balance;
 }
 
-void card_menu(User user)         // card menu
+void card_menu(User user)                   // Card menu
 {
     int option = 0, balance = user.balance;
     logo();
     printf("\n\t**********************************************************************\n");
-    printf("\t*\t\tWelcome to Cards: Master Menu!               *\n");
+    printf("\t*\t\tWelcome to Cards: Master Menu!                          *\n");
     printf("\t*____________________________________________________________________*\n");
-    printf("\t*\t1 =\tSend money                                           *\n");
-    printf("\t*\t1 =\t                                           *\n");
-    printf("\t*\t2 =\tReceive money                                        *\n");
+    printf("\t*\t1 =\tGenerate New Card                                    *\n");
+    printf("\t*\t2 =\tAdd Existing Card                                    *\n");
     printf("\t**********************************************************************\n");
 
     // User input
@@ -296,46 +292,51 @@ void card_menu(User user)         // card menu
     switch(option)
     {
         case 1:
-            balance = send_money(user);
+            create_card(user);
             break;
         case 2:
-            //balance = rec_money(user);
+            add_card(user);
             break;
     }
 }
 
-void create_card(User user)       //create new card
+void create_card(User user)                 // Create new card
 {
-    printf("Add new card\n"); 
+    printf("Add new card\n");
 }
 
-void add_card(User user)          //add existing card
+void add_card(User user)                    // Add existing card
 {
-    printf("Add exisiting card\n"); 
+    printf("Add exisiting card\n");
 }
 
-void cust_support(User user) // Customer support
+void cust_support(User user)                // Customer support
 {
-    printf("customer support\n"); 
+    printf("customer support\n");
 }
 
- void remove_acc(User user)   // Remove your bank account
+void remove_acc(User user)                  // Remove your bank account
 {
-    printf("remove acc\n"); 
+    printf("remove acc\n");
 }
 
-void log_out(User user)      // Log out of current session
+void log_out(User user)                     // Log out of current session
 {
     printf("log out\n");
     exit(0); // exit out of program completely
 }
 
-void receipt(User user)
+void send_receipt(User user, int amt, char acc_name2[])  // Receipt template[uses user.acc_name(from), amt, acc_name2(to)]
 {
-    printf("\treceipt\n");
+    printf("\tsend receipt\n");
 }
 
-void logo(void)
+void dep_receipt(User user, int amt, char acc_name2[])   // Receipt template[uses user.acc_name(to), amt, acc_name2(from)]
+{
+    printf("\tdep receipt\n");
+}
+
+void logo(void)                             // Logo
 {
     int i, j, n = 5;
     for(i = 1; i <= n; i++)
